@@ -31,6 +31,15 @@ class InMemory implements Adapter
         $this->histograms = [];
     }
 
+    /**
+     * Flushes the cache of a specific adapter
+     * @return void
+     */
+    public function flush()
+    {
+        $this->flushMemory();
+    }
+
     private function collectHistograms()
     {
         $histograms = [];

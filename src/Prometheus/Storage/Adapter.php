@@ -21,4 +21,10 @@ interface Adapter
     public function updateGauge(array $data);
 
     public function updateCounter(array $data);
+
+    /**
+     * Flushes the cache of a specific adapter
+     * @return void
+     */
+    public function flush();
 }

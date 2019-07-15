@@ -59,10 +59,23 @@ class Redis implements Adapter
         self::$prefix = $prefix;
     }
 
+    /**
+     * @throws StorageException
+     */
     public function flushRedis()
     {
         $this->openConnection();
         $this->redis->flushAll();
+    }
+
+    /**
+     * Flushes the cache of a specific adapter
+     * @return void
+     * @throws StorageException
+     */
+    public function flush()
+    {
+        $this->flushRedis();
     }
 
     /**
@@ -354,5 +367,4 @@ LUA
     {
         return implode(':', array(self::$prefix, $data['type'], $data['name']));
     }
-
 }

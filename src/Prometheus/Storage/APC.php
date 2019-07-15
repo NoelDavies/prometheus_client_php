@@ -22,6 +22,9 @@ class APC implements Adapter
         return $metrics;
     }
 
+    /**
+     * @param array $data
+     */
     public function updateHistogram(array $data)
     {
         // Initialize the sum
@@ -55,6 +58,9 @@ class APC implements Adapter
         apcu_inc($this->histogramBucketValueKey($data, $bucketToIncrease));
     }
 
+    /**
+     * @param array $data
+     */
     public function updateGauge(array $data)
     {
         $valueKey = $this->valueKey($data);
@@ -75,6 +81,9 @@ class APC implements Adapter
         }
     }
 
+    /**
+     * @param array $data
+     */
     public function updateCounter(array $data)
     {
         $new = apcu_add($this->valueKey($data), 0);
@@ -84,6 +93,17 @@ class APC implements Adapter
         apcu_inc($this->valueKey($data), $data['value']);
     }
 
+    /**
+     * @return void
+     */
+    public function flush()
+    {
+        $this->flushAPC();
+    }
+
+    /**
+     * @return void
+     */
     public function flushAPC()
     {
        apcu_clear_cache();
@@ -297,6 +317,9 @@ class APC implements Adapter
         return unpack('d', pack('Q', $val))[1];
     }
 
+    /**
+     * @param array $samples
+     */
     private function sortSamples(array &$samples)
     {
         usort($samples, function($a, $b){
