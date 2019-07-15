@@ -15,6 +15,7 @@ class CounterTest extends AbstractCounterTest
     public function configureAdapter()
     {
         $this->adapter = new InMemory();
+        $this->adapter->flush();
         $this->adapter->flushMemory();
     }
 }
